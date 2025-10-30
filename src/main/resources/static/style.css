@@ -1,0 +1,239 @@
+/* 🌟 Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 🌟 Navbar */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    position: relative;
+    padding: 8px 14px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    transform: translateY(-2px);
+	text-decoration: none;
+}
+
+/* 🌟 Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 80px 10%;
+    min-height: 100vh;
+}
+
+/* Left content (text + button) */
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+	transform: translateX(30px);
+}
+
+.hero .text {
+    max-width: 500px;
+}
+
+/* ✨ Photo with hover glow */
+.hero .photo {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.hero .photo img {
+    width: 420px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 20px rgba(0, 123, 255, 0.3));
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+/* Hover Glow Effect */
+.hero .photo:hover img {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 30px rgba(0, 123, 255, 0.7));
+}
+
+/* ✉️ Email under photo */
+.contact {
+    margin-top: 15px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.contact a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact a:hover {
+    text-decoration: underline;
+}
+
+/* 🌟 Floating Social Icons */
+.floating-icons {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 999;
+}
+
+.floating-icons a img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0,123,255,0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+    animation: floatIcon 4s ease-in-out infinite;
+}
+
+/* Hover glow effect */
+.floating-icons a img:hover {
+    transform: scale(1.2);
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    box-shadow: 0 0 20px rgba(0,123,255,0.8);
+}
+
+/* Floating animation */
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* 🌟 Text styles */
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+    animation: fadeInDown 1s ease;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 25px;
+    animation: fadeInUp 1.2s ease;
+}
+
+/* 🌟 Button style */
+.btn {
+    display: inline-block;
+    padding: 12px 22px;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.3s;
+    animation: fadeInUp 1.5s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* 🌟 Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: white;
+    margin-top: 40px;
+}
+
+/* 🌟 Animations */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* 🔧 Remove unwanted spacing caused by header element */
+header {
+    margin: 0;
+    padding: 10px 50px; /* keep side padding for layout */
+    border: none;
+}
+
+/* Remove default top margin from first section */
+body > section:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Fix hero section alignment under header */
+.hero {
+    margin-top: 0 !important;
+    padding: 40px 10%;
+    min-height: calc(100vh - 70px);
+}
+
+/* Prevent h1 default margin from pushing content */
+.hero h1 {
+    margin-top: 0;
+}
+

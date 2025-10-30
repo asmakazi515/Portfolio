@@ -1,0 +1,38 @@
+[
+  {
+    "emoji": "🏠",
+    "title": "Hostel Finder Website",
+    "description": "A web platform that enables students to search, compare, and book hostels based on location, budget, and amenities, with owner listings and review system.",
+    "tags": ["HTML", "CSS", "PHP", "MySQL"],
+    "githubLink": "https://github.com/yourgithub/hostel-finder",
+    "liveLink": "#",
+    "imagePath": "/images/hostel.png"
+  },
+  {
+    "emoji": "📊",
+    "title": "Customer Segmentation",
+    "description": "Data science project using clustering to group customers based on spending patterns and demographics.",
+    "tags": ["Python", "Pandas", "Scikit-learn"],
+    "githubLink": "https://github.com/yourgithub/customer-segmentation",
+    "liveLink": "#",
+    "imagePath": "/images/segmentation.jpg"
+  },
+  {
+    "emoji": "🌐",
+    "title": "Personal Portfolio Website",
+    "description": "A portfolio website showcasing my projects, skills, and experience with a modern responsive design.",
+    "tags": ["Java", "Spring Boot", "Thymeleaf"],
+    "githubLink": "https://github.com/yourgithub/portfolio",
+    "liveLink": "#",
+    "imagePath": "/images/portfolio.jpg"
+  },
+  {
+    "emoji": "🎮",
+    "title": "Tic Tac Toe Game",
+    "description": "A console-based Tic Tac Toe game featuring two-player mode, input validation, and automatic win/draw detection.",
+    "tags": ["C++"],
+    "githubLink": "https://github.com/yourgithub/tic-tac-toe",
+    "liveLink": "#",
+    "imagePath": "/images/tictactoe.png"
+  }
+]

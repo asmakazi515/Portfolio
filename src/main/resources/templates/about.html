@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>About Me</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* About Page Specific CSS */
+        main {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+        }
+
+        section h2 {
+            color: #007bff;
+            margin-bottom: 25px;
+            font-size: 1.7rem;
+            text-align: center;
+        }
+
+        section p, section ul li {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li::before {
+            content: "✔ ";
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== Roadmap / Timeline Styling ===== */
+        .roadmap {
+            position: relative;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .roadmap::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(180deg, #007bff, #00c6ff);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .milestone {
+            padding: 20px 40px;
+            position: relative;
+            width: 50%;
+        }
+
+        .milestone::before {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border: 6px solid #007bff;
+            top: 30px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+            text-align: right;
+        }
+
+        .left::before {
+            right: -12px;
+        }
+
+        .right {
+            left: 50%;
+            text-align: left;
+        }
+
+        .right::before {
+            left: -12px;
+        }
+
+        .milestone-content {
+            display: inline-block;
+            background: #f9fbff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 80%;
+        }
+
+        .milestone-content h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #007bff;
+        }
+
+        .milestone-content p {
+            margin: 8px 0 0;
+            font-size: 0.95rem;
+            color: #333;
+        }
+		
+		
+		/* 💻 TECHNICAL SKILLS SECTION */
+		section h2 {
+		    font-size: 1.8rem;
+		    text-align: center;
+		    margin-bottom: 25px;
+		    color: #333;
+		}
+
+		/* Overall grid for categories (Languages, Frameworks, etc.) */
+		.skills-grid {
+		    display: grid;
+		    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		    gap: 25px;
+		    justify-content: center;
+		    align-items: flex-start;
+		    padding: 20px;
+		}
+
+		/* Each category box */
+		.skill-card {
+		    background: #ffffff;
+		    border-radius: 16px;
+		    padding: 20px;
+		    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		    transition: transform 0.3s ease, box-shadow 0.3s ease;
+		    text-align: center;
+		}
+
+		.skill-card:hover {
+		    transform: translateY(-5px);
+		    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+		}
+
+		/* Category title (Languages, Frameworks...) */
+		.skill-header h3 {
+		    font-size: 1.2rem;
+		    margin-bottom: 15px;
+		    color: #222;
+		    font-weight: 600;
+		    border-bottom: 2px solid #4a90e2;
+		    display: inline-block;
+		    padding-bottom: 5px;
+		}
+
+		/* Skill icons area */
+		.skill-icons {
+		    display: flex;
+		    flex-wrap: wrap;
+		    justify-content: center;
+		    gap: 20px;
+		}
+
+		/* Each skill item (icon + text) */
+		.skill-item {
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    width: 80px;
+		    transition: transform 0.3s ease, filter 0.3s ease;
+		}
+
+		.skill-item:hover {
+		    transform: scale(1.1);
+		    filter: brightness(1.1);
+		}
+
+		/* Skill icon image */
+		.skill-item img {
+		    width: 45px;
+		    height: 45px;
+		    margin-bottom: 8px;
+		    object-fit: contain;
+		    transition: transform 0.3s ease;
+		}
+
+		/* Skill text label */
+		.skill-item span {
+		    font-size: 0.9rem;
+		    font-weight: 500;
+		    color: #444;
+		}
+
+		/* Responsive behavior */
+		@media (max-width: 768px) {
+		    .skill-item {
+		        width: 70px;
+		    }
+		    .skill-item img {
+		        width: 38px;
+		        height: 38px;
+		    }
+		    section h2 {
+		        font-size: 1.5rem;
+		    }
+		}
+
+
+		/* Professional Skills Grid */
+		.soft-skills-grid {
+		    display: flex;
+		    flex-wrap: wrap;
+		    gap: 15px;
+		    margin-top: 20px;
+		}
+
+		.soft-skill {
+		    flex: 1 1 160px;
+		    background: #eef5ff;
+		    padding: 12px 18px;
+		    border-radius: 10px;
+		    text-align: center;
+		    font-weight: 500;
+		    color: #007bff;
+		    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+		    transition: transform 0.3s ease;
+		}
+
+		.soft-skill:hover {
+		    transform: scale(1.05);
+		    background: #dfefff;
+		}
+				
+		/* ===== Certifications Section (Enhanced UI) ===== */
+		.certifications {
+		    background: linear-gradient(135deg, #f9fbff, #eef5ff);
+		    border-radius: 16px;
+		    padding: 40px 25px;
+		    margin-top: 40px;
+		    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+		    text-align: center;
+		    transition: all 0.4s ease;
+		}
+
+		.certifications h2 {
+		    color: #007bff;
+		    margin-bottom: 35px;
+		    font-size: 1.9rem;
+		    font-weight: 600;
+		    letter-spacing: 0.5px;
+		}
+
+		/* Grid layout for cards */
+		.cert-grid {
+		    display: grid;
+		    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		    gap: 25px;
+		    justify-content: center;
+		}
+
+		/* Certificate card */
+		.cert-card {
+		    background: #ffffff;
+		    border-radius: 16px;
+		    overflow: hidden;
+		    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		    transition: transform 0.4s ease, box-shadow 0.4s ease;
+		    cursor: pointer;
+		    position: relative;
+		}
+
+		/* Hover pop-out effect */
+		.cert-card:hover {
+		    transform: translateY(-10px) scale(1.03);
+		    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.25);
+		}
+
+		/* Certificate image */
+		.cert-card img {
+		    width: 100%;
+		    height: 160px;
+		    object-fit: cover;
+		    border-bottom: 4px solid #007bff;
+		}
+
+		/* Card content */
+		.cert-content {
+		    padding: 18px 15px;
+		}
+
+		.cert-content h3 {
+		    font-size: 1.15rem;
+		    color: #007bff;
+		    margin-bottom: 6px;
+		    font-weight: 600;
+		}
+
+		.cert-content p {
+		    margin: 3px 0;
+		    color: #555;
+		    font-size: 0.95rem;
+		}
+
+		/* Certificate link */
+		.cert-content a {
+		    display: inline-block;
+		    margin-top: 10px;
+		    color: #ffffff;
+		    background: #007bff;
+		    padding: 8px 14px;
+		    border-radius: 8px;
+		    font-size: 0.9rem;
+		    font-weight: 500;
+		    text-decoration: none;
+		    transition: background 0.3s ease, transform 0.2s ease;
+		}
+
+		.cert-content a:hover {
+		    background: #0056b3;
+		    transform: translateY(-3px);
+		}
+
+		
+		#contact {
+		        text-align: center;
+		        padding: 60px 20px;
+		        background: linear-gradient(135deg, #f0f6ff, #e8f0fe);
+		        border-radius: 12px;
+		        margin-top: 40px;
+		    }
+
+		    #contact h2 {
+		        font-size: 2rem;
+		        margin-bottom: 10px;
+		        color: #007bff;
+		    }
+
+		    #contact p {
+		        color: #555;
+		        margin-bottom: 30px;
+		        font-size: 1.1rem;
+		    }
+
+		    /* Icons container */
+		    .contact-icons {
+		        display: flex;
+		        justify-content: center;
+		        gap: 50px;
+		        flex-wrap: wrap;
+		    }
+
+		    /* Each icon box */
+		    .contact-item {
+		        text-align: center;
+		        transition: transform 0.3s ease;
+		    }
+
+		    .contact-item:hover {
+		        transform: translateY(-8px);
+		    }
+
+		    /* Icon Style */
+		    .contact-item i {
+		        font-size: 2.8rem;
+		        margin-bottom: 8px;
+		        transition: color 0.3s ease;
+		    }
+
+		    /* Labels */
+		    .contact-item span {
+		        display: block;
+		        font-size: 1rem;
+		        font-weight: 500;
+		        color: #333;
+		    }
+
+		    /* Hover effects */
+		    .linkedin i { color: #555; }
+		    .linkedin:hover i { color: #0077b5; }
+
+		    .github i { color: #555; }
+		    .github:hover i { color: #000; }
+
+		    .email i { color: #555; }
+		    .email:hover i { color: #e63946; }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header th:replace="fragments/navbar :: navbar"></header>
+
+    <!-- Main Content -->
+    <main>
+		<section>
+		    <h2>👋 Who Am I?</h2>
+		    <p>
+		         A curious learner who enjoys exploring technology and 
+		        turning ideas into real projects.  
+		        I believe in <b>continuous growth, adaptability, and teamwork</b> as the core values 
+		        that shape both my personal and professional journey.
+		    </p>
+		    <p>
+		        Outside of coding, I love <b>watching movies 🎬</b> — it helps me relax, discover 
+		        different perspectives, and spark creativity.  
+		        For me, hobbies aren’t just a break, but also a way to stay inspired.
+		    </p>
+		</section>
+
+        <section>
+            <h2>🎓 Education Roadmap</h2>
+            <div class="roadmap">
+                <div class="milestone left">
+                    <div class="milestone-content">
+                        <h3>2022 - 2026</h3>
+                        <p>B.Tech in Computer Science & Engineering<br>
+                        D.Y.Patil Collge of Engineering and Technology Kasaba Bawada Kolhapur</p>
+                    </div>
+                </div>
+                <div class="milestone right">
+                    <div class="milestone-content">
+                        <h3>2020 - 2022</h3>
+                        <p>Higher Secondary (Class 12)<br>
+                        LSK College Satara</p>
+                    </div>
+                </div>
+                <!-- <div class="milestone left">
+                    <div class="milestone-content">
+                        <h3>2017 - 2019</h3>
+                        <p>Secondary School (Class 10)<br>
+                        DEF High School</p>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+
+		<section>
+		    <h2>💻 Technical Skills</h2>
+
+		    <div class="skills-grid">
+		        <!-- Category Loop -->
+		        <div class="skill-card" th:each="entry : ${skill}">
+		            <div class="skill-header">
+		                <h3 th:text="${#strings.capitalize(entry.key)}"></h3>
+		            </div>
+
+		            <!-- Skills Loop -->
+		            <div class="skill-icons">
+		                <div class="skill-item" th:each="s : ${entry.value}">
+		                    <img th:src="@{'/images/skills/' + ${#strings.replace(s.toLowerCase(), ' ', '')} + '.png'}" alt="Skill Icon">
+		                    <span th:text="${s}"></span>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</section>
+
+
+
+		<section>
+		    <h2>🌟 Professional Skills</h2>
+		    <div class="soft-skills-grid">
+		        <div class="soft-skill">🤝 Teamwork</div>
+		        <div class="soft-skill">🧠 Problem Solving</div>
+		        <div class="soft-skill">🗣️ Communication</div>
+		        <div class="soft-skill">⚡ Adaptability</div>
+		        <div class="soft-skill">⏳ Time Management</div>
+		    </div>
+		</section>
+		
+		
+
+		<!-- ================= CERTIFICATIONS SECTION ================= -->
+		<section class="certifications">
+		    <h2>🏅 Certifications</h2>
+
+		    <div class="cert-grid">
+		        <div class="cert-card" th:each="cert : ${certifications}">
+		            <img th:src="@{${cert.imagePath}}" alt="Certificate Image">
+		            <div class="cert-content">
+		                <h3 th:text="${cert.title}"></h3>
+		                <p th:text="${cert.organization}"></p>
+		                <p th:text="${cert.date}"></p>
+		                <a th:href="@{${cert.certificateUrl}}" target="_blank">View Certificate</a>
+		            </div>
+		        </div>
+		    </div>
+		</section>
+
+
+
+        <!-- <section>
+            <h2>🚀 Experience & Projects</h2>
+            <p>
+                Worked on projects like a <b>Hostel Finder Website</b>, 
+                <b>Customer Segmentation with Python</b>, and this <b>Portfolio App</b>.
+            </p>
+        </section> -->
+
+		<!-- <section id="contact">
+		    <h2>📬 Contact Me</h2>
+		    <p>Connect with me on:</p>
+		    
+		    <div class="contact-icons">
+		        
+		        <a href="https://www.linkedin.com/in/asma-kazi-95b00125a/" target="_blank" class="contact-item linkedin">
+		            <i class="fab fa-linkedin"></i>
+		            <span>LinkedIn</span>
+		        </a>
+		        
+		       
+		        <a href="https://github.com/asmakazi515" target="_blank" class="contact-item github">
+		            <i class="fab fa-github"></i>
+		            <span>GitHub</span>
+		        </a>
+		        
+		       
+		        <a href="mailto:asmakazi5841@gmail.com" class="contact-item email">
+		            <i class="fas fa-envelope"></i>
+		            <span>Email</span>
+		        </a>
+		    </div>
+		</section> -->
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

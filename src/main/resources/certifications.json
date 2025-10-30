@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Java Programming Fundamentals",
+    "organization": "Oracle Academy",
+    "date": "May 2024",
+    "certificateUrl": "https://www.oracle.com/education/",
+    "imagePath": "/images/certificates/java.png"
+  },
+  {
+    "title": "Python for Data Science",
+    "organization": "IBM SkillsBuild",
+    "date": "July 2024",
+    "certificateUrl": "https://www.ibm.com/skillsbuild/",
+    "imagePath": "/images/certificates/python.png"
+  },
+  {
+    "title": "Web Development Bootcamp",
+    "organization": "Udemy",
+    "date": "Sept 2024",
+    "certificateUrl": "https://www.udemy.com/",
+    "imagePath": "/images/certificates/web.png"
+  }
+]

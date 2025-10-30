@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Projects</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+        /* Page-specific styles for Projects only */
+        main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 18px;
+        }
+
+        .project-content h3 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: #007bff;
+        }
+
+        .project-content p {
+            font-size: 0.95rem;
+            color: #555;
+            margin: 10px 0 15px;
+        }
+
+        .tags {
+            margin: 10px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #1d4ed8;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin: 3px 5px 3px 0;
+        }
+
+        .buttons {
+            margin-top: 12px;
+        }
+
+        .buttons a {
+            display: inline-block;
+            padding: 8px 14px;
+            margin-right: 10px;
+            font-size: 0.85rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-github {
+            background: #24292e;
+            color: white;
+        }
+
+        .btn-live {
+            background: linear-gradient(90deg, #007bff, #00c6ff);
+            color: white;
+        }
+
+        .btn-github:hover, .btn-live:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- Projects Section -->
+    <main>
+        <h1>🚀 Projects I’ve Built</h1>
+
+        <div class="projects-grid">
+            <!-- Dynamic project cards -->
+            <div th:each="project : ${projects}" class="project-card">
+                <!-- Optional image or fallback -->
+                <!-- <img th:if="${project.imagePath != null and project.imagePath != ''}"
+                     th:src="@{${project.imagePath}}"
+                     alt="Project Image"
+                     class="project-image">
+                <img th:if="${project.imagePath == null or project.imagePath == ''}"
+                     th:src="@{/images/default-placeholder.jpg}"
+                     alt="Default Image"
+                     class="project-image"> -->
+
+                <div class="project-content">
+                    <h3 th:text="${project.emoji + ' ' + project.title}"></h3>
+                    <p th:text="${project.description}"></p>
+
+                    <div class="tags">
+                        <span class="tag" th:each="tag : ${project.tags}" th:text="${tag}"></span>
+                    </div>
+
+                    <div class="buttons">
+                        <a th:href="${project.githubLink}" target="_blank" class="btn-github">GitHub</a>
+                        <a th:href="${project.liveLink}" target="_blank" class="btn-live">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

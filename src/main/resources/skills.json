@@ -1,0 +1,6 @@
+{
+  "languages": ["Java", "Python", "JavaScript", "C++"],
+  "frameworks": ["Spring Boot", "React", "Thymeleaf"],
+  "databases": ["MySQL"],
+  "tools": ["Git", "Docker", "Maven"]
+}

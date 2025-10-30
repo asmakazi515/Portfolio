@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <header th:fragment="navbar">
+        <div class="logo">MyPortfolio</div>
+        <nav>
+            <a th:href="@{/}" class="nav-link">Home</a>
+            <a th:href="@{/about}" class="nav-link">About</a>
+            <a th:href="@{/projects}" class="nav-link">Projects</a>
+            <a href="/Asma_Kazi_.pdf" target="_blank" class="nav-link">View Resume</a>
+            <a href="/Asma_Kazi_.pdf" class="nav-link" download>Download Resume</a>
+        </nav>
+    </header>
+</body>
+</html>
