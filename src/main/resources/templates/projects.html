@@ -3,124 +3,182 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects</title>
     <link rel="stylesheet" th:href="@{/style.css}">
     <style>
-        /* Page layout */
+    /* 🌐 Page layout */
+    main {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #007bff;
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+    /* 🧱 Projects grid */
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    /* 🪄 Card design */
+    .project-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .project-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .project-content {
+        padding: 18px;
+    }
+
+    .project-content h3 {
+        margin-top: 0;
+        font-size: 1.4rem;
+        color: #007bff;
+    }
+
+    .project-content p {
+        font-size: 0.95rem;
+        color: #555;
+        margin: 10px 0 15px;
+    }
+
+    /* 🏷️ Tags */
+    .tags {
+        margin: 10px 0;
+    }
+
+    .tag {
+        display: inline-block;
+        background: #e0e7ff;
+        color: #1d4ed8;
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        margin: 3px 5px 3px 0;
+        white-space: nowrap;
+    }
+
+    /* 🔘 Buttons */
+    .buttons {
+        margin-top: 12px;
+    }
+
+    .buttons a {
+        display: inline-block;
+        padding: 8px 14px;
+        margin-right: 10px;
+        font-size: 0.85rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .btn-github {
+        background: #24292e;
+        color: white;
+    }
+
+    .btn-live {
+        background: linear-gradient(90deg, #007bff, #00c6ff);
+        color: white;
+    }
+
+    .btn-github:hover, .btn-live:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    /* ✨ Scroll animations */
+    .fade-up, .fade-left, .fade-right {
+        opacity: 0;
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-up { transform: translateY(40px); }
+    .fade-left { transform: translateX(-60px); }
+    .fade-right { transform: translateX(60px); }
+
+    .visible {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+
+    /* 📱 Responsive adjustments */
+    @media (max-width: 768px) {
         main {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 20px;
+            margin: 20px auto;
+            padding: 15px;
         }
 
         h1 {
-            text-align: center;
-            color: #007bff;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        /* Card design */
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            font-size: 2rem;
+            margin-bottom: 20px;
         }
 
         .project-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .project-content {
-            padding: 18px;
+            height: 160px;
         }
 
         .project-content h3 {
-            margin-top: 0;
-            font-size: 1.4rem;
-            color: #007bff;
+            font-size: 1.2rem;
         }
 
         .project-content p {
-            font-size: 0.95rem;
-            color: #555;
-            margin: 10px 0 15px;
-        }
-
-        .tags {
-            margin: 10px 0;
-        }
-
-        .tag {
-            display: inline-block;
-            background: #e0e7ff;
-            color: #1d4ed8;
-            padding: 4px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            margin: 3px 5px 3px 0;
-        }
-
-        .buttons {
-            margin-top: 12px;
+            font-size: 0.9rem;
         }
 
         .buttons a {
-            display: inline-block;
-            padding: 8px 14px;
-            margin-right: 10px;
-            font-size: 0.85rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            padding: 7px 12px;
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1.8rem;
         }
 
-        .btn-github {
-            background: #24292e;
-            color: white;
+        .project-card {
+            border-radius: 10px;
         }
 
-        .btn-live {
-            background: linear-gradient(90deg, #007bff, #00c6ff);
-            color: white;
+        .project-content {
+            padding: 14px;
         }
 
-        .btn-github:hover, .btn-live:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
+        .project-image {
+            height: 140px;
         }
 
-        /* ✨ Scroll animations */
-        .fade-up, .fade-left, .fade-right {
-            opacity: 0;
-            transition: opacity 0.8s ease, transform 0.8s ease;
+        .tag {
+            font-size: 0.75rem;
         }
+    }
+</style>
 
-        .fade-up { transform: translateY(40px); }
-        .fade-left { transform: translateX(-60px); }
-        .fade-right { transform: translateX(60px); }
-
-        .visible {
-            opacity: 1;
-            transform: translate(0, 0);
-        }
-    </style>
 </head>
 
 <body>

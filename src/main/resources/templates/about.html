@@ -3,106 +3,97 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
     <link rel="stylesheet" th:href="@{/style.css}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        /* === General Layout === */
-        body {
-            background: linear-gradient(180deg, #ffffff 0%, #f0f6ff 100%);
-            font-family: "Segoe UI", sans-serif;
-            margin: 0;
-            padding: 0;
-            animation: fadeInPage 1s ease-in-out;
-        }
+/* === General Layout === */
+body {
+    background: linear-gradient(180deg, #ffffff 0%, #f0f6ff 100%);
+    font-family: "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 0;
+    animation: fadeInPage 1s ease-in-out;
+}
 
-        @keyframes fadeInPage {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+@keyframes fadeInPage {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
-        main {
-            max-width: 1000px;
-            margin: 60px auto;
-            padding: 20px;
-        }
+main {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 20px;
+}
 
-        section {
-            background: #fff;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 50px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s ease;
-        }
+section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 50px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        section h2 {
-            color: #007bff;
-            margin-bottom: 25px;
-            font-size: 1.7rem;
-            text-align: center;
-        }
+section h2 {
+    color: #007bff;
+    margin-bottom: 25px;
+    font-size: 1.7rem;
+    text-align: center;
+}
 
-        /* section::after {
-            content: "";
-            display: block;
-            height: 2px;
-            margin: 40px auto 0;
-            width: 80%;
-            background: linear-gradient(90deg, transparent, #007bff, transparent);
-            border-radius: 2px;
-        } */
+section p, section ul li {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #444;
+}
 
-        section p, section ul li {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #444;
-        }
+a { color: #007bff; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-        a { color: #007bff; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+ul { list-style: none; padding: 0; }
+ul li::before {
+    content: "✔ ";
+    color: #007bff;
+    font-weight: bold;
+}
 
-        ul { list-style: none; padding: 0; }
-        ul li::before {
-            content: "✔ ";
-            color: #007bff;
-            font-weight: bold;
-        }
+/* === Scroll to Top Button === */
+#scrollTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background 0.3s ease, transform 0.3s ease;
+    z-index: 100;
+}
+#scrollTopBtn:hover {
+    background: #0056b3;
+    transform: translateY(-4px);
+}
 
-        /* === Scroll to Top Button === */
-        #scrollTopBtn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            cursor: pointer;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: background 0.3s ease, transform 0.3s ease;
-            z-index: 100;
-        }
-        #scrollTopBtn:hover {
-            background: #0056b3;
-            transform: translateY(-4px);
-        }
-
-        /* === Education Roadmap === */
-        .education {
+/* === Education Section === */
+.education {
     text-align: center;
     padding: 60px 20px;
 }
@@ -157,102 +148,100 @@
     font-size: 0.95rem;
 }
 
+/* === Technical Skills === */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
 
-        /* === Technical Skills === */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
-        }
+.skill-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
 
-        .skill-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
-        }
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
 
-        .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-        }
+.skill-header h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #222;
+    font-weight: 600;
+    border-bottom: 2px solid #4a90e2;
+    display: inline-block;
+    padding-bottom: 5px;
+}
 
-        .skill-header h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #222;
-            font-weight: 600;
-            border-bottom: 2px solid #4a90e2;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
+.skill-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
 
-        .skill-icons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
 
-        .skill-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 80px;
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
+.skill-item:hover {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
 
-        .skill-item:hover {
-            transform: scale(1.1);
-            filter: brightness(1.1);
-        }
+.skill-item img {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 8px;
+    object-fit: contain;
+}
 
-        .skill-item img {
-            width: 45px;
-            height: 45px;
-            margin-bottom: 8px;
-            object-fit: contain;
-        }
+.skill-item span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #444;
+}
 
-        .skill-item span {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #444;
-        }
+/* === Soft Skills === */
+.soft-skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+}
 
-        /* === Soft Skills === */
-        .soft-skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-            justify-content: center;
-        }
+.soft-skill {
+    flex: 1 1 160px;
+    background: #eef5ff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+    color: #007bff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
 
-        .soft-skill {
-            flex: 1 1 160px;
-            background: #eef5ff;
-            padding: 12px 18px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 500;
-            color: #007bff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-        }
+.soft-skill:hover {
+    transform: scale(1.05);
+    background: #dfefff;
+}
 
-        .soft-skill:hover {
-            transform: scale(1.05);
-            background: #dfefff;
-        }
-
-        /* === Certifications === */
-       /* Certificate Grid */
+/* === Certifications === */
 .certifications {
     max-width: 1100px;
     margin: 50px auto;
@@ -306,7 +295,7 @@
     margin: 4px 0;
 }
 
-/* Modal Styles */
+/* === Modal Styles === */
 .modal {
     display: none;
     position: fixed;
@@ -368,8 +357,82 @@
     to { opacity: 1; transform: scale(1); }
 }
 
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 992px) {
+    main {
+        padding: 15px;
+    }
 
-    </style>
+    section {
+        padding: 20px;
+        margin-bottom: 40px;
+    }
+
+    .education-grid,
+    .skills-grid,
+    .cert-grid {
+        gap: 20px;
+    }
+
+    .edu-card,
+    .skill-card,
+    .cert-card {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .soft-skill {
+        flex: 1 1 120px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 600px) {
+    section h2 {
+        font-size: 1.4rem;
+    }
+
+    section p, section ul li {
+        font-size: 0.9rem;
+    }
+
+    .edu-card h4 {
+        font-size: 1rem;
+    }
+
+    .education-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .skill-item img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .soft-skill {
+        width: 90%;
+        font-size: 0.9rem;
+    }
+
+    .cert-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #scrollTopBtn {
+        width: 40px;
+        height: 40px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+}
+</style>
+
 </head>
 <body>
 <div th:replace="fragments/vertical-nav :: verticalNav"></div>
