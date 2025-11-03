@@ -541,3 +541,14 @@ footer {
     transform: scale(0.95);
   }
 }
+
+/* === Hide toggle on large screens === */
+.menu-toggle {
+  display: none; /* hide by default on desktop */
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block; /* show only on mobile */
+  }
+}

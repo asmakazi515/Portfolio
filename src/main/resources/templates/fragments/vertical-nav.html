@@ -1,141 +1,166 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <style>
-            /* === Vertical Navbar (Desktop) === */
-.vertical-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 220px;
-  background: #ffffff;
-  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-top: 40px;
-  z-index: 100;
-}
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.vertical-nav a {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 12px 18px;
-  color: #333;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background 0.3s, transform 0.2s;
-}
-
-.vertical-nav a:hover {
-  background: #f0f6ff;
-  transform: translateX(5px);
-}
-
-.vertical-nav img {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-}
-
-.nav-text {
-  font-size: 0.95rem;
-  word-break: break-word;
-}
-
-/* === Adjust main content to the right === */
-main {
-  margin-left: 230px;
-  padding: 20px;
-}
-
-/* === Hamburger Button (only visible on mobile) === */
-.menu-toggle {
-  display: none;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 200;
-}
-
-/* === Mobile View === */
-@media (max-width: 768px) {
+  <style>
+  /* === Vertical Navbar (Desktop) === */
   .vertical-nav {
-    width: 200px;
-    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 220px;
+    background: #ffffff;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 40px;
+    z-index: 150;
     transition: transform 0.3s ease;
   }
 
-  .vertical-nav.active {
-    transform: translateX(0);
+  .vertical-nav a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 18px;
+    color: #333;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .vertical-nav a:hover {
+    background: #f0f6ff;
+    transform: translateX(5px);
+  }
+
+  .vertical-nav img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+
+  .nav-text {
+    font-size: 0.95rem;
+    word-break: break-word;
   }
 
   main {
-    margin-left: 0;
+    margin-left: 230px;
+    padding: 20px;
   }
 
+  /* === Hamburger Button (Hidden by Default on Desktop) === */
   .menu-toggle {
-    display: block;
+    display: none;  /* ✅ No need for !important here */
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 200;
+    transition: background 0.3s ease;
   }
-}
 
-        </style>
-    </head>
+  .menu-toggle:hover {
+    background: #0056b3;
+  }
+
+  /* === Mobile View === */
+  @media (max-width: 768px) {
+    .vertical-nav {
+      width: 220px;
+      transform: translateX(-100%);
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .vertical-nav.active {
+      transform: translateX(0);
+    }
+
+    main {
+      margin-left: 0;
+    }
+
+    .menu-toggle {
+      display: block; /* ✅ Now visible only on mobile */
+    }
+
+    /* Overlay effect when nav opens */
+    body.nav-open::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 120;
+    }
+  }
+  </style>
+</head>
+
 <body>
 
-    <div class="vertical-nav" th:fragment="verticalNav">
+  <!-- 🟦 Hamburger Button -->
+  <button class="menu-toggle" onclick="toggleNav()">☰</button>
 
-        <!-- Home -->
-        <a th:href="@{/}">
-            <img src="/images/home1.png" alt="Home">
-            <span class="nav-text">Home</span>
-        </a>
+  <!-- 🧭 Vertical Navbar -->
+  <div class="vertical-nav" th:fragment="verticalNav">
 
-        <!-- About -->
-        <a th:href="@{/about}">
-            <img src="/images/about.png" alt="About">
-            <span class="nav-text">About</span>
-        </a>
+    <a th:href="@{/}">
+      <img src="/images/home1.png" alt="Home">
+      <span class="nav-text">Home</span>
+    </a>
 
-        <!-- Projects -->
-        <a th:href="@{/projects}">
-            <img src="/images/project1.png" alt="Projects">
-            <span class="nav-text">Projects</span>
-        </a>
+    <a th:href="@{/about}">
+      <img src="/images/about.png" alt="About">
+      <span class="nav-text">About</span>
+    </a>
 
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/asma-kazi-95b00125a/" target="_blank">
-            <img src="/images/LinkedIn.png" alt="LinkedIn">
-            <span class="nav-text">LinkedIn</span>
-        </a>
+    <a th:href="@{/projects}">
+      <img src="/images/project1.png" alt="Projects">
+      <span class="nav-text">Projects</span>
+    </a>
 
-        <!-- GitHub -->
-        <a href="https://github.com/asmakazi515" target="_blank">
-            <img src="/images/github.png" alt="GitHub">
-            <span class="nav-text">GitHub</span>
-        </a>
+    <a href="https://www.linkedin.com/in/asma-kazi-95b00125a/" target="_blank">
+      <img src="/images/LinkedIn.png" alt="LinkedIn">
+      <span class="nav-text">LinkedIn</span>
+    </a>
 
-        <!-- ✉️ Email -->
-        <a href="mailto:asmakazi5841@gmail.com">
-            <img src="/images/mail.png" alt="Email">
-            <span class="nav-text">Email:<br> asmakazi5841@gmail.com</span>
-        </a>
+    <a href="https://github.com/asmakazi515" target="_blank">
+      <img src="/images/github.png" alt="GitHub">
+      <span class="nav-text">GitHub</span>
+    </a>
 
-    </div>
-<script>
-  function toggleNav() {
-    document.querySelector('.vertical-nav').classList.toggle('active');
-  }
-</script>
+    <a href="mailto:asmakazi5841@gmail.com">
+      <img src="/images/mail.png" alt="Email">
+      <span class="nav-text">Email:<br> asmakazi5841@gmail.com</span>
+    </a>
+
+  </div>
+
+  <script>
+    function toggleNav() {
+      const nav = document.querySelector('.vertical-nav');
+      const body = document.body;
+
+      nav.classList.toggle('active');
+      body.classList.toggle('nav-open');
+
+      // ✅ Lock/unlock scroll when menu is open
+      body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
 
 </body>
 </html>
