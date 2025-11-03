@@ -6,7 +6,7 @@
     <title>Projects</title>
     <link rel="stylesheet" th:href="@{/style.css}">
     <style>
-        /* Page-specific styles for Projects only */
+        /* Page layout */
         main {
             max-width: 1100px;
             margin: 40px auto;
@@ -26,6 +26,7 @@
             gap: 25px;
         }
 
+        /* Card design */
         .project-card {
             background: white;
             border-radius: 15px;
@@ -104,28 +105,48 @@
             opacity: 0.9;
             transform: translateY(-2px);
         }
+
+        /* ✨ Scroll animations */
+        .fade-up, .fade-left, .fade-right {
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up { transform: translateY(40px); }
+        .fade-left { transform: translateX(-60px); }
+        .fade-right { transform: translateX(60px); }
+
+        .visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
     </style>
 </head>
-<body>
-    <!-- Navbar -->
-    <div th:replace="fragments/navbar :: navbar"></div>
 
-    <!-- Projects Section -->
+<body>
+    <!-- Left vertical nav -->
+    <div th:replace="fragments/vertical-nav :: verticalNav"></div>
+
+    
+
     <main>
-        <h1>🚀 Projects I’ve Built</h1>
+        <h1 class="fade-up">🚀 Projects I’ve Built</h1>
 
         <div class="projects-grid">
-            <!-- Dynamic project cards -->
-            <div th:each="project : ${projects}" class="project-card">
-                <!-- Optional image or fallback -->
-                <!-- <img th:if="${project.imagePath != null and project.imagePath != ''}"
+            <div th:each="project, iterStat : ${projects}"
+                 th:class="'project-card ' + (${iterStat.index} % 2 == 0 ? 'fade-left' : 'fade-right')">
+
+                <!-- Optional image -->
+                <!--
+                <img th:if="${project.imagePath != null and project.imagePath != ''}"
                      th:src="@{${project.imagePath}}"
                      alt="Project Image"
                      class="project-image">
                 <img th:if="${project.imagePath == null or project.imagePath == ''}"
                      th:src="@{/images/default-placeholder.jpg}"
                      alt="Default Image"
-                     class="project-image"> -->
+                     class="project-image">
+                -->
 
                 <div class="project-content">
                     <h3 th:text="${project.emoji + ' ' + project.title}"></h3>
@@ -136,15 +157,30 @@
                     </div>
 
                     <div class="buttons">
-                        <a th:href="${project.githubLink}" target="_blank" class="btn-github">GitHub</a>
-                        <a th:href="${project.liveLink}" target="_blank" class="btn-live">Live Demo</a>
-                    </div>
+    <a th:if="${project.githubLink != null and project.githubLink != ''}"
+       th:href="${project.githubLink}" target="_blank" class="btn-github">GitHub</a>
+
+    <a th:if="${project.liveLink != null and project.liveLink != ''}"
+       th:href="${project.liveLink}" target="_blank" class="btn-live">Live Demo</a>
+</div>
+
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <div th:replace="fragments/footer :: footer"></div>
+    <script>
+        const elements = document.querySelectorAll('.fade-up, .fade-left, .fade-right');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        elements.forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>

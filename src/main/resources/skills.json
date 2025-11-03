@@ -1,6 +1,6 @@
 {
-  "languages": ["Java", "Python", "JavaScript", "C++"],
-  "frameworks": ["Spring Boot", "React", "Thymeleaf"],
+  "languages": ["Java", "Python"],
+  "frameworks": ["Spring Boot", "React Js", "Thymeleaf"],
   "databases": ["MySQL"],
-  "tools": ["Git", "Docker", "Maven"]
+  "tools": ["GitHub", "Docker"]
 }

@@ -2,48 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home - Portfolio</title>
-	<link rel="stylesheet" th:href="@{/style.css}">
-
-
+    <title>Asma's Portfolio</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-    <!-- Navbar -->
-    <div th:replace="fragments/navbar :: navbar"></div>
-
+    
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <div class="text">
-                <h1>Hello, I'm <span style="color:#007bff;">Asma Kazi</span> 👋</h1>
-				<p>Building. Learning. Growing.</p>
-				<p>A Computer Science and Engineering student who loves building practical solutions with <b>Java, Python, and web development</b>. I believe technology is not just about code, but about creating value that lasts.</p>
-                <a th:href="@{/projects}" class="btn">🚀 Explore My Work</a>
-            </div>
-            <div class="photo">
-                <img src="/images/profile-removebg.png" alt="My Photo">
-				<p class="contact">
-				      📧 <!--Reach me at--> Conatct me<a href="mailto:yourmail@gmail.com">asmakazi5841@gmail.com</a>
-				    </p>
-            </div>
+    <div class="hero-content">
+        <div class="text">
+            <h1>Hi, I'm <span style="color:#007bff;">Asma Kazi</span> 👋</h1>
+            <p>Building. Learning. Growing.</p>
+            <p>A Computer Science and Engineering student who loves building practical solutions with 
+                <b>Java, Python, and web development</b>. 
+                I believe technology is not just about code, but about creating value that lasts.
+            </p>
+            <!-- 📄 Resume Button -->
+            <a href="/ASMA.pdf" target="_blank" class="btn">📄 View Resume</a>
         </div>
-    </section>
-	<!-- Floating Social Icons -->
-	<div class="floating-icons">
-	    <a href="https://www.linkedin.com/in/asma-kazi-95b00125a/" target="_blank" title="LinkedIn">
-	        <img src="/images/linkedIn.png" alt="LinkedIn">
-	    </a>
-	    <a href="https://github.com/asmakazi515" target="_blank" title="GitHub">
-	        <img src="/images/github.png" alt="GitHub">
-	    </a>
-	    <!--<a href="mailto:yourmail@gmail.com" title="Email">
-	        <img src="/images/mail.png" alt="Email">
-	    </a> -->
-	</div>
+
+        <div class="photo">
+            <img src="/images/profile-removebg.png" alt="My Photo">
+        </div>
+    </div>
+</section>
 
 
+    <!-- Vertical Navigation Icons -->
+<div th:replace="fragments/vertical-nav :: verticalNav"></div>
 
-    <!-- Footer -->
-    <div th:replace="fragments/footer :: footer"></div>
+    </div>
+
+    
+
+
 </body>
 </html>

@@ -89,4 +89,5 @@ public class HomeController {
         }
         return "skills"; // maps to skills.html
     }
+
 }

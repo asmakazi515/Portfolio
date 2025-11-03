@@ -1,23 +1,10 @@
-[
+
+  [
   {
-    "title": "Java Programming Fundamentals",
-    "organization": "Oracle Academy",
-    "date": "May 2024",
-    "certificateUrl": "https://www.oracle.com/education/",
-    "imagePath": "/images/certificates/java.png"
-  },
-  {
-    "title": "Python for Data Science",
-    "organization": "IBM SkillsBuild",
-    "date": "July 2024",
-    "certificateUrl": "https://www.ibm.com/skillsbuild/",
-    "imagePath": "/images/certificates/python.png"
-  },
-  {
-    "title": "Web Development Bootcamp",
-    "organization": "Udemy",
-    "date": "Sept 2024",
-    "certificateUrl": "https://www.udemy.com/",
-    "imagePath": "/images/certificates/web.png"
+    "title": "Introduction to cybersecurity",
+    "organization": "Cisco Networking Academy",
+    "imagePath": "/images/certificates/introduction-to-cybersecurity.png",
+    "certificateUrl": "https://www.credly.com/badges/2ef24ec4-c1e1-4c5f-8a35-024d1e7c73b5/public_url"
   }
+  
 ]

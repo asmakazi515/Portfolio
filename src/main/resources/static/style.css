@@ -55,7 +55,7 @@ nav {
     color: #fff;
     box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
     transform: translateY(-2px);
-	text-decoration: none;
+    text-decoration: none;
 }
 
 /* 🌟 Hero Section */
@@ -74,7 +74,7 @@ nav {
     align-items: center;
     gap: 50px;
     flex-wrap: wrap;
-	transform: translateX(30px);
+    transform: translateX(30px);
 }
 
 .hero .text {
@@ -119,42 +119,73 @@ nav {
     text-decoration: underline;
 }
 
-/* 🌟 Floating Social Icons */
+/* 🌟 Floating Social Icons (Vertical Right) */
 .floating-icons {
     position: fixed;
-    bottom: 30px;
+    top: 50%;
     right: 30px;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     gap: 15px;
     z-index: 999;
 }
 
-.floating-icons a img {
-    width: 45px;
-    height: 45px;
+.floating-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.85);
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 8px;
-    box-shadow: 0 4px 12px rgba(0,123,255,0.4);
-    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
-    animation: floatIcon 4s ease-in-out infinite;
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    text-decoration: none;
 }
 
-/* Hover glow effect */
-.floating-icons a img:hover {
-    transform: scale(1.2);
+.floating-icons a:hover {
     background: linear-gradient(135deg, #007bff, #00c6ff);
+    transform: scale(1.1);
     box-shadow: 0 0 20px rgba(0,123,255,0.8);
 }
 
-/* Floating animation */
+.floating-icons img {
+    width: 28px;
+    height: 28px;
+}
+
+/* Tooltip text */
+.floating-icons a::after {
+    content: attr(title);
+    position: absolute;
+    right: 65px;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateX(10px);
+    box-shadow: 0 2px 10px rgba(0,123,255,0.4);
+}
+
+.floating-icons a:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* 🌟 Animations */
 @keyframes floatIcon {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
 }
 
-/* 🌟 Text styles */
 .hero h1 {
     font-size: 3rem;
     font-weight: 800;
@@ -211,29 +242,206 @@ footer {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* 🌟 Vertical Left Navigation */
+/* 🌟 Vertical Left Navigation */
+/* 🌟 Vertical Left Navigation */
+.vertical-nav {
+    position: fixed;
+    top: 50%;
+    left: 25px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    padding: 20px 10px;
+    box-shadow: 0 4px 14px rgba(0,123,255,0.2);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+}
 
-/* 🔧 Remove unwanted spacing caused by header element */
-header {
+/* Each icon button */
+.vertical-nav a {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 10px rgba(0,123,255,0.2);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    overflow: visible;
+}
+
+/* Hover animation */
+.vertical-nav a:hover {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0,123,255,0.6);
+}
+
+/* Icons */
+.vertical-nav img {
+    width: 26px;
+    height: 26px;
+}
+
+/* 🌟 Tooltip using .nav-text */
+.vertical-nav a .nav-text {
+    position: absolute;
+    left: 65px; /* Position tooltip to right */
+    top: 50%;
+    transform: translateY(-50%) translateX(-10px);
+    background: rgba(0, 123, 255, 0.9);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,123,255,0.3);
+}
+
+/* Show tooltip on hover */
+.vertical-nav a:hover .nav-text {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* Responsive - Hide on small screens */
+@media (max-width: 768px) {
+    .vertical-nav {
+        display: none;
+    }
+}
+
+
+/* 🌟 Work Experience Section */
+.experience-section {
+    margin-top: 60px;
+    padding: 50px 10%;
+    background: #ffffff;
+}
+
+.experience-section h2 {
+    font-size: 2rem;
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+/* Removed underline (::after) */
+
+.experience-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.experience-card {
+    background: #f8faff;
+    border-left: 5px solid #007bff;
+    border-radius: 15px;
+    padding: 25px 30px;
+    width: 80%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.1);
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.exp-header h3 {
+    font-size: 1.3rem;
+    color: #007bff;
     margin: 0;
-    padding: 10px 50px; /* keep side padding for layout */
-    border: none;
 }
 
-/* Remove default top margin from first section */
-body > section:first-of-type {
-    margin-top: 0;
-    padding-top: 0;
+.exp-company {
+    font-weight: 500;
+    color: #333;
+    margin-right: 10px;
 }
 
-/* Fix hero section alignment under header */
-.hero {
-    margin-top: 0 !important;
+.exp-date {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.experience-card p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+
+/* 🌟 Extra-Curricular Section */
+/* 🌟 Extra-Curricular Section (Blue Theme) */
+.activities-section {
+    margin-top: 60px;
     padding: 40px 10%;
-    min-height: calc(100vh - 70px);
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* Prevent h1 default margin from pushing content */
-.hero h1 {
-    margin-top: 0;
+.activities-section h2 {
+    font-size: 2rem;
+    text-align: center;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 40px;
+    font-weight: 700;
 }
 
+.activities-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.activity-card {
+    background: #f5f8ff;
+    border-left: 5px solid #007bff;
+    border-radius: 12px;
+    padding: 20px 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.activity-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.2);
+}
+
+.activity-card h3 {
+    color: #007bff;
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+}
+
+.activity-card p {
+    color: #444;
+    line-height: 1.6;
+    font-size: 1rem;
+}

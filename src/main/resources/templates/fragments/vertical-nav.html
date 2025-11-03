@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <div class="vertical-nav" th:fragment="verticalNav">
+
+        <!-- Home -->
+        <a th:href="@{/}">
+            <img src="/images/home1.png" alt="Home">
+            <span class="nav-text">Home</span>
+        </a>
+
+        <!-- About -->
+        <a th:href="@{/about}">
+            <img src="/images/about.png" alt="About">
+            <span class="nav-text">About</span>
+        </a>
+
+        <!-- Projects -->
+        <a th:href="@{/projects}">
+            <img src="/images/project1.png" alt="Projects">
+            <span class="nav-text">Projects</span>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/asma-kazi-95b00125a/" target="_blank">
+            <img src="/images/linkedIn.png" alt="LinkedIn">
+            <span class="nav-text">LinkedIn</span>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/asmakazi515" target="_blank">
+            <img src="/images/github.png" alt="GitHub">
+            <span class="nav-text">GitHub</span>
+        </a>
+
+        <!-- ✉️ Email -->
+        <a href="mailto:asmakazi5841@gmail.com">
+            <img src="/images/mail.png" alt="Email">
+            <span class="nav-text">Email:<br> asmakazi5841@gmail.com</span>
+        </a>
+
+    </div>
+
+</body>
+</html>

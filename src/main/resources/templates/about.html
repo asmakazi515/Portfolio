@@ -5,10 +5,23 @@
     <meta charset="UTF-8">
     <title>About Me</title>
     <link rel="stylesheet" th:href="@{/style.css}">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        /* About Page Specific CSS */
+        /* === General Layout === */
+        body {
+            background: linear-gradient(180deg, #ffffff 0%, #f0f6ff 100%);
+            font-family: "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            animation: fadeInPage 1s ease-in-out;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         main {
             max-width: 1000px;
             margin: 60px auto;
@@ -19,13 +32,16 @@
             background: #fff;
             border-radius: 12px;
             padding: 25px;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
         }
 
-        section:hover {
-            transform: translateY(-5px);
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         section h2 {
@@ -35,526 +51,542 @@
             text-align: center;
         }
 
+        /* section::after {
+            content: "";
+            display: block;
+            height: 2px;
+            margin: 40px auto 0;
+            width: 80%;
+            background: linear-gradient(90deg, transparent, #007bff, transparent);
+            border-radius: 2px;
+        } */
+
         section p, section ul li {
             font-size: 1rem;
             line-height: 1.6;
             color: #444;
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
-        }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
 
+        ul { list-style: none; padding: 0; }
         ul li::before {
             content: "✔ ";
             color: #007bff;
             font-weight: bold;
         }
 
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        /* ===== Roadmap / Timeline Styling ===== */
-        .roadmap {
-            position: relative;
-            max-width: 900px;
-            margin: 40px auto;
-        }
-
-        .roadmap::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background: linear-gradient(180deg, #007bff, #00c6ff);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-            border-radius: 3px;
-        }
-
-        .milestone {
-            padding: 20px 40px;
-            position: relative;
-            width: 50%;
-        }
-
-        .milestone::before {
-            content: '';
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            background: #fff;
-            border: 6px solid #007bff;
-            top: 30px;
+        /* === Scroll to Top Button === */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #007bff;
+            color: #fff;
+            border: none;
             border-radius: 50%;
-            z-index: 1;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: background 0.3s ease, transform 0.3s ease;
+            z-index: 100;
+        }
+        #scrollTopBtn:hover {
+            background: #0056b3;
+            transform: translateY(-4px);
         }
 
-        .left {
-            left: 0;
-            text-align: right;
-        }
+        /* === Education Roadmap === */
+        .education {
+    text-align: center;
+    padding: 60px 20px;
+}
 
-        .left::before {
-            right: -12px;
-        }
+.education-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
 
-        .right {
-            left: 50%;
-            text-align: left;
-        }
+.edu-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 280px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-        .right::before {
-            left: -12px;
-        }
+.edu-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
 
-        .milestone-content {
-            display: inline-block;
-            background: #f9fbff;
+.college-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.college-logo:hover {
+    transform: scale(1.1);
+}
+
+.edu-card h3 {
+    color: #555;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.edu-card h4 {
+    color: #222;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.edu-card p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+
+        /* === Technical Skills === */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            justify-content: center;
+            align-items: flex-start;
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            max-width: 80%;
         }
 
-        .milestone-content h3 {
-            margin: 0;
+        .skill-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-header h3 {
             font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #222;
+            font-weight: 600;
+            border-bottom: 2px solid #4a90e2;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .skill-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80px;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+
+        .skill-item img {
+            width: 45px;
+            height: 45px;
+            margin-bottom: 8px;
+            object-fit: contain;
+        }
+
+        .skill-item span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #444;
+        }
+
+        /* === Soft Skills === */
+        .soft-skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .soft-skill {
+            flex: 1 1 160px;
+            background: #eef5ff;
+            padding: 12px 18px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
             color: #007bff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
         }
 
-        .milestone-content p {
-            margin: 8px 0 0;
-            font-size: 0.95rem;
-            color: #333;
+        .soft-skill:hover {
+            transform: scale(1.05);
+            background: #dfefff;
         }
-		
-		
-		/* 💻 TECHNICAL SKILLS SECTION */
-		section h2 {
-		    font-size: 1.8rem;
-		    text-align: center;
-		    margin-bottom: 25px;
-		    color: #333;
-		}
 
-		/* Overall grid for categories (Languages, Frameworks, etc.) */
-		.skills-grid {
-		    display: grid;
-		    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		    gap: 25px;
-		    justify-content: center;
-		    align-items: flex-start;
-		    padding: 20px;
-		}
+        /* === Certifications === */
+       /* Certificate Grid */
+.certifications {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
 
-		/* Each category box */
-		.skill-card {
-		    background: #ffffff;
-		    border-radius: 16px;
-		    padding: 20px;
-		    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-		    transition: transform 0.3s ease, box-shadow 0.3s ease;
-		    text-align: center;
-		}
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
 
-		.skill-card:hover {
-		    transform: translateY(-5px);
-		    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-		}
+.cert-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+}
 
-		/* Category title (Languages, Frameworks...) */
-		.skill-header h3 {
-		    font-size: 1.2rem;
-		    margin-bottom: 15px;
-		    color: #222;
-		    font-weight: 600;
-		    border-bottom: 2px solid #4a90e2;
-		    display: inline-block;
-		    padding-bottom: 5px;
-		}
+.cert-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
 
-		/* Skill icons area */
-		.skill-icons {
-		    display: flex;
-		    flex-wrap: wrap;
-		    justify-content: center;
-		    gap: 20px;
-		}
+.cert-image {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: #f8f9fa;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
 
-		/* Each skill item (icon + text) */
-		.skill-item {
-		    display: flex;
-		    flex-direction: column;
-		    align-items: center;
-		    width: 80px;
-		    transition: transform 0.3s ease, filter 0.3s ease;
-		}
+.cert-content {
+    padding: 15px;
+}
 
-		.skill-item:hover {
-		    transform: scale(1.1);
-		    filter: brightness(1.1);
-		}
+.cert-content h3 {
+    font-size: 1.1rem;
+    color: #007bff;
+    margin-bottom: 5px;
+}
 
-		/* Skill icon image */
-		.skill-item img {
-		    width: 45px;
-		    height: 45px;
-		    margin-bottom: 8px;
-		    object-fit: contain;
-		    transition: transform 0.3s ease;
-		}
+.cert-content p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 4px 0;
+}
 
-		/* Skill text label */
-		.skill-item span {
-		    font-size: 0.9rem;
-		    font-weight: 500;
-		    color: #444;
-		}
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+}
 
-		/* Responsive behavior */
-		@media (max-width: 768px) {
-		    .skill-item {
-		        width: 70px;
-		    }
-		    .skill-item img {
-		        width: 38px;
-		        height: 38px;
-		    }
-		    section h2 {
-		        font-size: 1.5rem;
-		    }
-		}
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+}
 
+.modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
 
-		/* Professional Skills Grid */
-		.soft-skills-grid {
-		    display: flex;
-		    flex-wrap: wrap;
-		    gap: 15px;
-		    margin-top: 20px;
-		}
+.close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-		.soft-skill {
-		    flex: 1 1 160px;
-		    background: #eef5ff;
-		    padding: 12px 18px;
-		    border-radius: 10px;
-		    text-align: center;
-		    font-weight: 500;
-		    color: #007bff;
-		    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-		    transition: transform 0.3s ease;
-		}
+.close:hover {
+    color: #ff5252;
+}
 
-		.soft-skill:hover {
-		    transform: scale(1.05);
-		    background: #dfefff;
-		}
-				
-		/* ===== Certifications Section (Enhanced UI) ===== */
-		.certifications {
-		    background: linear-gradient(135deg, #f9fbff, #eef5ff);
-		    border-radius: 16px;
-		    padding: 40px 25px;
-		    margin-top: 40px;
-		    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-		    text-align: center;
-		    transition: all 0.4s ease;
-		}
+.btn-proof {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+}
 
-		.certifications h2 {
-		    color: #007bff;
-		    margin-bottom: 35px;
-		    font-size: 1.9rem;
-		    font-weight: 600;
-		    letter-spacing: 0.5px;
-		}
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
 
-		/* Grid layout for cards */
-		.cert-grid {
-		    display: grid;
-		    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-		    gap: 25px;
-		    justify-content: center;
-		}
-
-		/* Certificate card */
-		.cert-card {
-		    background: #ffffff;
-		    border-radius: 16px;
-		    overflow: hidden;
-		    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-		    transition: transform 0.4s ease, box-shadow 0.4s ease;
-		    cursor: pointer;
-		    position: relative;
-		}
-
-		/* Hover pop-out effect */
-		.cert-card:hover {
-		    transform: translateY(-10px) scale(1.03);
-		    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.25);
-		}
-
-		/* Certificate image */
-		.cert-card img {
-		    width: 100%;
-		    height: 160px;
-		    object-fit: cover;
-		    border-bottom: 4px solid #007bff;
-		}
-
-		/* Card content */
-		.cert-content {
-		    padding: 18px 15px;
-		}
-
-		.cert-content h3 {
-		    font-size: 1.15rem;
-		    color: #007bff;
-		    margin-bottom: 6px;
-		    font-weight: 600;
-		}
-
-		.cert-content p {
-		    margin: 3px 0;
-		    color: #555;
-		    font-size: 0.95rem;
-		}
-
-		/* Certificate link */
-		.cert-content a {
-		    display: inline-block;
-		    margin-top: 10px;
-		    color: #ffffff;
-		    background: #007bff;
-		    padding: 8px 14px;
-		    border-radius: 8px;
-		    font-size: 0.9rem;
-		    font-weight: 500;
-		    text-decoration: none;
-		    transition: background 0.3s ease, transform 0.2s ease;
-		}
-
-		.cert-content a:hover {
-		    background: #0056b3;
-		    transform: translateY(-3px);
-		}
-
-		
-		#contact {
-		        text-align: center;
-		        padding: 60px 20px;
-		        background: linear-gradient(135deg, #f0f6ff, #e8f0fe);
-		        border-radius: 12px;
-		        margin-top: 40px;
-		    }
-
-		    #contact h2 {
-		        font-size: 2rem;
-		        margin-bottom: 10px;
-		        color: #007bff;
-		    }
-
-		    #contact p {
-		        color: #555;
-		        margin-bottom: 30px;
-		        font-size: 1.1rem;
-		    }
-
-		    /* Icons container */
-		    .contact-icons {
-		        display: flex;
-		        justify-content: center;
-		        gap: 50px;
-		        flex-wrap: wrap;
-		    }
-
-		    /* Each icon box */
-		    .contact-item {
-		        text-align: center;
-		        transition: transform 0.3s ease;
-		    }
-
-		    .contact-item:hover {
-		        transform: translateY(-8px);
-		    }
-
-		    /* Icon Style */
-		    .contact-item i {
-		        font-size: 2.8rem;
-		        margin-bottom: 8px;
-		        transition: color 0.3s ease;
-		    }
-
-		    /* Labels */
-		    .contact-item span {
-		        display: block;
-		        font-size: 1rem;
-		        font-weight: 500;
-		        color: #333;
-		    }
-
-		    /* Hover effects */
-		    .linkedin i { color: #555; }
-		    .linkedin:hover i { color: #0077b5; }
-
-		    .github i { color: #555; }
-		    .github:hover i { color: #000; }
-
-		    .email i { color: #555; }
-		    .email:hover i { color: #e63946; }
 
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <header th:replace="fragments/navbar :: navbar"></header>
+<div th:replace="fragments/vertical-nav :: verticalNav"></div>
 
-    <!-- Main Content -->
-    <main>
-		<section>
-		    <h2>👋 Who Am I?</h2>
-		    <p>
-		         A curious learner who enjoys exploring technology and 
-		        turning ideas into real projects.  
-		        I believe in <b>continuous growth, adaptability, and teamwork</b> as the core values 
-		        that shape both my personal and professional journey.
-		    </p>
-		    <p>
-		        Outside of coding, I love <b>watching movies 🎬</b> — it helps me relax, discover 
-		        different perspectives, and spark creativity.  
-		        For me, hobbies aren’t just a break, but also a way to stay inspired.
-		    </p>
-		</section>
+<main>
+    <section>
+        <h2>👋 Who Am I?</h2>
+        <p>
+            A curious learner who enjoys exploring technology and turning ideas into real projects.  
+            I believe in <b class="highlight">continuous growth</b>, <b class="highlight">adaptability</b>, and <b class="highlight">teamwork</b> as the core values that shape both my personal and professional journey.
+        </p>
+        <p>
+            Outside of coding, I love <b>watching movies 🎬</b> — it helps me relax, discover different perspectives, and spark creativity.
+            For me, hobbies aren’t just a break, but also a way to stay inspired.
+        </p>
+    </section>
 
-        <section>
-            <h2>🎓 Education Roadmap</h2>
-            <div class="roadmap">
-                <div class="milestone left">
-                    <div class="milestone-content">
-                        <h3>2022 - 2026</h3>
-                        <p>B.Tech in Computer Science & Engineering<br>
-                        D.Y.Patil Collge of Engineering and Technology Kasaba Bawada Kolhapur</p>
-                    </div>
-                </div>
-                <div class="milestone right">
-                    <div class="milestone-content">
-                        <h3>2020 - 2022</h3>
-                        <p>Higher Secondary (Class 12)<br>
-                        LSK College Satara</p>
-                    </div>
-                </div>
-                <!-- <div class="milestone left">
-                    <div class="milestone-content">
-                        <h3>2017 - 2019</h3>
-                        <p>Secondary School (Class 10)<br>
-                        DEF High School</p>
-                    </div>
-                </div> -->
+    <section class="education">
+    <h2>🎓 Education</h2>
+    <div class="education-grid">
+
+        <div class="edu-card">
+            <a href="https://coek.dypgroup.edu.in/" target="_blank">
+                <!-- <img src="/images/logos/dypatil.png" alt="D.Y. Patil College Logo" class="college-logo"> -->
+            </a>
+            <h3>2022 – Present</h3>
+            <h4>B.Tech in Computer Science & Engineering</h4>
+            <p>D.Y. Patil College of Engineering and Technology, Kolhapur</p>
+        </div>
+
+        <div class="edu-card">
+            <a href="https://www.lskcollege.edu.in/" target="_blank">
+                <!-- <img src="/images/logos/lsk.png" alt="LSK College Logo" class="college-logo"> -->
+            </a>
+            <h3>2020 – 2022</h3>
+            <h4>Higher Secondary (Class 12)</h4>
+            <p>LSK College, Satara</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- <section class="experience-section">
+
+    <div class="experience-container">
+    <h2>💼 Work Experience</h2>
+        <div class="experience-card">
+            <div class="exp-header">
+                <h3>Web Developer Intern</h3>
+                <span class="exp-company">ABC Tech Solutions</span>
+                <span class="exp-date">May 2024 – July 2024</span>
             </div>
-        </section>
+            <p>Developed responsive web pages using Spring Boot and React. 
+            Enhanced UI performance and implemented RESTful APIs for dynamic data display.</p>
+        </div>
 
-		<section>
-		    <h2>💻 Technical Skills</h2>
+        <div class="experience-card">
+            <div class="exp-header">
+                <h3>Freelance Developer</h3>
+                <span class="exp-company">Self-employed</span>
+                <span class="exp-date">Aug 2024 – Present</span>
+            </div>
+            <p>Designed and built full-stack applications using Java, Spring Boot, and MySQL. 
+            Collaborated with small businesses to deploy user-friendly websites.</p>
+        </div>
 
-		    <div class="skills-grid">
-		        <!-- Category Loop -->
-		        <div class="skill-card" th:each="entry : ${skill}">
-		            <div class="skill-header">
-		                <h3 th:text="${#strings.capitalize(entry.key)}"></h3>
-		            </div>
-
-		            <!-- Skills Loop -->
-		            <div class="skill-icons">
-		                <div class="skill-item" th:each="s : ${entry.value}">
-		                    <img th:src="@{'/images/skills/' + ${#strings.replace(s.toLowerCase(), ' ', '')} + '.png'}" alt="Skill Icon">
-		                    <span th:text="${s}"></span>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</section>
+    </div>
+</section> -->
 
 
+    <section>
+        <h2>💻 Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card" th:each="entry : ${skill}">
+                <div class="skill-header">
+                    <h3 th:text="${#strings.capitalize(entry.key)}"></h3>
+                </div>
+                <div class="skill-icons">
+                    <div class="skill-item" th:each="s : ${entry.value}">
+                        <img th:src="@{'/images/skills/' + ${#strings.replace(s.toLowerCase(), ' ', '')} + '.png'}" alt="Skill Icon">
+                        <span th:text="${s}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-		<section>
-		    <h2>🌟 Professional Skills</h2>
-		    <div class="soft-skills-grid">
-		        <div class="soft-skill">🤝 Teamwork</div>
-		        <div class="soft-skill">🧠 Problem Solving</div>
-		        <div class="soft-skill">🗣️ Communication</div>
-		        <div class="soft-skill">⚡ Adaptability</div>
-		        <div class="soft-skill">⏳ Time Management</div>
-		    </div>
-		</section>
-		
-		
+    
 
-		<!-- ================= CERTIFICATIONS SECTION ================= -->
-		<section class="certifications">
-		    <h2>🏅 Certifications</h2>
-
-		    <div class="cert-grid">
-		        <div class="cert-card" th:each="cert : ${certifications}">
-		            <img th:src="@{${cert.imagePath}}" alt="Certificate Image">
-		            <div class="cert-content">
-		                <h3 th:text="${cert.title}"></h3>
-		                <p th:text="${cert.organization}"></p>
-		                <p th:text="${cert.date}"></p>
-		                <a th:href="@{${cert.certificateUrl}}" target="_blank">View Certificate</a>
-		            </div>
-		        </div>
-		    </div>
-		</section>
-
+    <section>
+    <h2>🌟 Professional & Interpersonal Skills</h2>
+    <div class="soft-skills-grid">
+        <div class="soft-skill">🧠 Problem-Solving Skills</div>
+        <div class="soft-skill">🤝 Collaboration & Communication</div>
+        <div class="soft-skill">⚡ Adaptability</div>
+        <div class="soft-skill">⏳ Time & Task Management</div>
+        <div class="soft-skill">🎯 Leadership & Initiative</div>
+    </div>
+</section>
 
 
-        <!-- <section>
-            <h2>🚀 Experience & Projects</h2>
-            <p>
-                Worked on projects like a <b>Hostel Finder Website</b>, 
-                <b>Customer Segmentation with Python</b>, and this <b>Portfolio App</b>.
-            </p>
-        </section> -->
+    <section class="certifications">
+    <h2>🏅 Certifications</h2>
 
-		<!-- <section id="contact">
-		    <h2>📬 Contact Me</h2>
-		    <p>Connect with me on:</p>
-		    
-		    <div class="contact-icons">
-		        
-		        <a href="https://www.linkedin.com/in/asma-kazi-95b00125a/" target="_blank" class="contact-item linkedin">
-		            <i class="fab fa-linkedin"></i>
-		            <span>LinkedIn</span>
-		        </a>
-		        
-		       
-		        <a href="https://github.com/asmakazi515" target="_blank" class="contact-item github">
-		            <i class="fab fa-github"></i>
-		            <span>GitHub</span>
-		        </a>
-		        
-		       
-		        <a href="mailto:asmakazi5841@gmail.com" class="contact-item email">
-		            <i class="fas fa-envelope"></i>
-		            <span>Email</span>
-		        </a>
-		    </div>
-		</section> -->
+    <div class="cert-grid">
+        <div th:each="cert : ${certifications}" class="cert-card"
+             th:data-image="@{${cert.imagePath}}"
+             th:data-title="${cert.title}"
+             th:data-org="${cert.organization}"
+           
+             th:data-link="${cert.certificateUrl}"
+             onclick="openModal(this)">
+             
+            <img th:src="@{${cert.imagePath}}" alt="Certificate Image" class="cert-image">
+            
+            <div class="cert-content">
+                <h3 th:text="${cert.title}"></h3>
+                <p th:text="${cert.organization}"></p>
+               
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 🔍 Modal Popup -->
+<div id="certModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Certificate Preview">
+        <h3 id="modalTitle"></h3>
+        <p id="modalOrg"></p>
+        <p id="modalDate"></p>
+        <a id="modalLink" href="#" target="_blank" class="btn-proof">Verify certificate</a>
+    </div>
+</div>
+
+<section class="activities-section">
+    <h2>🌟 Extra-Curricular & Leadership Activities</h2>
+
+    <div class="activities-container">
+
+        <div class="activity-card">
+            <h3>Social Coordinator – Coding Club</h3>
+            <p>Coordinated inter-college coding events and weekly coding sessions to enhance peer engagement in programming.
+Helped increase participation by 40% and mentored new members in problem-solving.</p>
+        </div>
+
+        <div class="activity-card">
+            <h3>Outreach & Communication Coordinator – MLSA DYPCET Chapter</h3>
+            <p>Managed communication campaigns, promoted workshops, and collaborated with Microsoft ambassadors to expand community outreach.
+Strengthened branding and doubled student sign-ups for tech sessions.</p>
+        </div>
+
+        <div class="activity-card">
+            <h3>Training Coordinator – Training & Placement Cell</h3>
+            <p>Coordinated aptitude and soft-skill training sessions to support placement readiness among peers.
+Worked closely with faculty and recruiters to align student training with industry needs.</p>
+        </div>
+
+    </div>
+</section>
 
 
-    </main>
+</main>
 
-    <!-- Footer -->
-    <footer th:replace="fragments/footer :: footer"></footer>
+<!-- Scroll to top button -->
+<button id="scrollTopBtn"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+    // Fade-in on scroll
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+    }, { threshold: 0.15 });
+    sections.forEach(sec => observer.observe(sec));
+
+    // Scroll-to-top button
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    window.addEventListener("scroll", () => {
+        scrollBtn.style.display = window.scrollY > 200 ? "flex" : "none";
+    });
+    scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+
+function openModal(card) {
+    const modal = document.getElementById("certModal");
+    document.getElementById("modalImage").src = card.dataset.image;
+    document.getElementById("modalTitle").textContent = card.dataset.title;
+    document.getElementById("modalOrg").textContent = card.dataset.org;
+    document.getElementById("modalDate").textContent = card.dataset.date;
+    
+    const link = document.getElementById("modalLink");
+    if (card.dataset.link && card.dataset.link.trim() !== "") {
+        link.href = card.dataset.link;
+        link.style.display = "inline-block";
+    } else {
+        link.style.display = "none";
+    }
+
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("certModal").style.display = "none";
+}
+
+// Optional: Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById("certModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+
+
+</script>
 </body>
 </html>
